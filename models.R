@@ -1,5 +1,5 @@
 
-dir <- "/Users/stephenjohnson/Documents/NLP/"
+dir <- "/Users/vamsi"
 base <- "notes.txt"
 file <- paste0(dir,base)
 fileLines <- scan(file=file,what="char",sep="\n",blank.lines.skip=FALSE)
@@ -20,14 +20,12 @@ annotateDoc <- function(doc) {
 corpus <- lapply(rawCorpus,annotateDoc)
 
 # Use corpora.R to create a corpus from the progress notes.
-# Make sure that alphabetic words are properly tokenized.
 # Create a list of tokens using the words function.
 tokens <- unlist(lapply(corpus,function (x) words(x)))
 # Select alphabetic words using grep.
 words <- grep("^[a-z]+$",tolower(tokens),value=TRUE)
 # Create a spectrum object.
 notes.spc <- vec2spc(words)
-# See what it looks like.
 plot(notes.spc)
 # Create a vocabuary growth object.
 notes.vgc <- vec2vgc(words,m.max=1)
@@ -52,7 +50,7 @@ plot(notes.vgc,notes.gigp.vgc,legend=c("observed","expected"))
 
 # Project growth to size of Brown sample
 notes.gigp.vgc <- lnre.vgc(notes.gigp,1:100*1000)
-# Compare vocabulary growth: explain which grows faster and why.
+# Compare vocabulary growth
 plot(notes.gigp.vgc,Brown.gigp.vgc,legend=c("notes","Brown"))
 
 # Estimate spectrum for notes at 100000 words
@@ -73,7 +71,4 @@ types.common <- types - types.rare
 
 # Determine the frequencies of the first 100 words in the corpus
 freq <- table(words[1:100])
-# Calculate the following:
-# Entropy of the sequence
-# Entropy rate of the sequence
-# Cross entropy compared to a uniform distribution
+
